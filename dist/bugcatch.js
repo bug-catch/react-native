@@ -1,0 +1,56 @@
+;(function(root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    define([], factory);
+  } else if (typeof exports === 'object') {
+    module.exports = factory();
+  } else {
+    root.Bugcatch = factory();
+  }
+}(this, function() {
+"use strict";
+const Bugcatch = (function () {
+    // Post request
+    const xhrPost = (url, data) => {
+        try {
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.send(JSON.stringify(data));
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    return {
+        /*
+         * Initialise bug-catch to catch all errors
+         *
+         * @param {string} base_url of bug-catch/server
+         * @param {string} release version of web-app
+         */
+        init: function (options) {
+            const base_url = options.base_url || "";
+            const release = options.release || "0.0.0";
+
+            window.onerror = function (message, url, line, column, error) {
+                // Collect error data
+                // and send to server
+                xhrPost(`${base_url}/error`, {
+                    data: {
+                        message: message,
+                        url: url,
+                        line: line,
+                        column: column,
+                        error: error,
+                    },
+                    release: release,
+                });
+
+                return true;
+            };
+        },
+    };
+})();
+
+return Bugcatch;
+}));
