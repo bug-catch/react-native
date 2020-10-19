@@ -36,6 +36,8 @@ const Bugcatch = (function () {
                     },
                     release: release,
                 });
+
+                return true;
             };
         },
     };
