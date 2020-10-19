@@ -21,5 +21,5 @@ gulp.task("default", () => {
  * UMD build
  */
 gulp.task("build", function () {
-    return gulp.src("src/*.js").pipe(umd()).pipe(gulp.dest("build"));
+    return gulp.src("src/*.js").pipe(umd()).pipe(gulp.dest("dist"));
 });
