@@ -1,4 +1,5 @@
 const gulp = require("gulp");
+const umd = require("gulp-umd");
 const prettier = require("gulp-prettier");
 
 /*
@@ -14,4 +15,11 @@ gulp.task("default", () => {
         ])
         .pipe(prettier({ editorconfig: true }))
         .pipe(gulp.dest((file) => file.base));
+});
+
+/*
+ * UMD build
+ */
+gulp.task("build", function () {
+    return gulp.src("src/*.js").pipe(umd()).pipe(gulp.dest("build"));
 });
