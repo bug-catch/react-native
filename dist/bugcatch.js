@@ -52,17 +52,44 @@ const Bugcatch = (function () {
      */
     const onError = (evt) => {
         // Collect error data from event
-        const data = {
-            message: evt.message,
-            filename: evt.filename,
-            line: evt.lineno,
-            column: evt.colno,
-            error: {
+        const data = {};
+
+        // Detect error event
+        // separate error and unhandledrejection
+        if (evt.error) {
+            // Error event
+            data.type = evt.type;
+            data.message = evt.message;
+            data.location = evt.filename;
+            data.line = evt.lineno;
+            data.column = evt.colno;
+            data.error = {
                 name: evt.error.name,
                 message: evt.error.message,
                 stack: evt.error.stack,
-            },
-        };
+            };
+        } else {
+            // Promise rejection event
+            data.type = evt.type;
+            data.message = evt.reason.message;
+            data.location = window.location.href;
+            data.error = {
+                name: evt.reason.name,
+                message: evt.reason.message,
+                stack: evt.reason.stack,
+            };
+
+            // Extract line and column numbers
+            // from stack trace
+            const stackLinePosition = (/:[0-9]+:[0-9]+/.exec(
+                evt.reason.stack
+            ) || [""])[0].split(":");
+
+            if (stackLinePosition.length === 3) {
+                data.line = stackLinePosition[1];
+                data.column = stackLinePosition[2];
+            }
+        }
 
         // Send incident data to server
         xhrPost(`${options.base_url}/error`, {
@@ -77,14 +104,16 @@ const Bugcatch = (function () {
         /*
          * Initialise bug-catch to catch all errors
          *
-         * @param {string} base_url of bug-catch/server
-         * @param {string} release version of web-app
+         * @param {object} user options
          */
         init: function (userOptions) {
             setOptions(userOptions);
 
             // Listen to uncaught errors
             window.addEventListener("error", onError);
+
+            // Listen to uncaught promises rejections
+            window.addEventListener("unhandledrejection", onError);
         },
     };
 })();
