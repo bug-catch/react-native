@@ -57,7 +57,11 @@ const Bugcatch = (function () {
             filename: evt.filename,
             line: evt.lineno,
             column: evt.colno,
-            error: evt.error,
+            error: {
+                name: evt.error.name,
+                message: evt.error.message,
+                stack: evt.error.stack,
+            },
         };
 
         // Send incident data to server
