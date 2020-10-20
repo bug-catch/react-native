@@ -51,9 +51,10 @@ const Bugcatch = (function () {
             // Error event
             data.type = evt.type;
             data.message = evt.message;
-            data.location = evt.filename;
-            data.line = evt.lineno;
-            data.column = evt.colno;
+            data.filename = evt.filename;
+            data.location = window.location.href;
+            data.line = evt.lineno || -1;
+            data.column = evt.colno || -1;
             data.error = {
                 name: evt.error.name,
                 message: evt.error.message,
@@ -63,7 +64,10 @@ const Bugcatch = (function () {
             // Promise rejection event
             data.type = evt.type;
             data.message = evt.reason.message;
+            data.filename = "";
             data.location = window.location.href;
+            data.line = -1;
+            data.column = -1;
             data.error = {
                 name: evt.reason.name,
                 message: evt.reason.message,
@@ -77,8 +81,8 @@ const Bugcatch = (function () {
             ) || [""])[0].split(":");
 
             if (stackLinePosition.length === 3) {
-                data.line = stackLinePosition[1];
-                data.column = stackLinePosition[2];
+                data.line = Number(stackLinePosition[1]);
+                data.column = Number(stackLinePosition[2]);
             }
         }
 
