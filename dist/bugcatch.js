@@ -9,7 +9,31 @@
 }(this, function() {
 "use strict";
 const Bugcatch = (function () {
-    // Post request
+    /*
+     * Default options object
+     */
+    const options = {
+        base_url: "",
+        release: "0.0.0",
+        disableError: false,
+        disableUnhandledRejection: false,
+    };
+
+    /*
+     * Set options object
+     *
+     * @param {object} user options
+     */
+    const setOptions = (userOptions) => {
+        Object.assign(options, userOptions);
+    };
+
+    /*
+     * Post request
+     *
+     * @param {string} url address to post to
+     * @param {object} data object to send
+     */
     const xhrPost = (url, data) => {
         try {
             const xhr = new XMLHttpRequest();
@@ -21,33 +45,75 @@ const Bugcatch = (function () {
         }
     };
 
+    /*
+     * Handle error events
+     *
+     * @param {object} error event object
+     */
+    const onError = (evt) => {
+        // Collect error data from event
+        const data = {};
+
+        // Detect error event
+        // separate error and unhandledrejection
+        if (evt.error) {
+            // Error event
+            data.type = evt.type;
+            data.message = evt.message;
+            data.location = evt.filename;
+            data.line = evt.lineno;
+            data.column = evt.colno;
+            data.error = {
+                name: evt.error.name,
+                message: evt.error.message,
+                stack: evt.error.stack,
+            };
+        } else {
+            // Promise rejection event
+            data.type = evt.type;
+            data.message = evt.reason.message;
+            data.location = window.location.href;
+            data.error = {
+                name: evt.reason.name,
+                message: evt.reason.message,
+                stack: evt.reason.stack,
+            };
+
+            // Extract line and column numbers
+            // from stack trace
+            const stackLinePosition = (/:[0-9]+:[0-9]+/.exec(
+                evt.reason.stack
+            ) || [""])[0].split(":");
+
+            if (stackLinePosition.length === 3) {
+                data.line = stackLinePosition[1];
+                data.column = stackLinePosition[2];
+            }
+        }
+
+        // Send incident data to server
+        xhrPost(`${options.base_url}/error`, {
+            data: data,
+            release: options.release,
+        });
+
+        return true;
+    };
+
     return {
         /*
          * Initialise bug-catch to catch all errors
          *
-         * @param {string} base_url of bug-catch/server
-         * @param {string} release version of web-app
+         * @param {object} user options
          */
-        init: function (options) {
-            const base_url = options.base_url || "";
-            const release = options.release || "0.0.0";
+        init: function (userOptions) {
+            setOptions(userOptions);
 
-            window.onerror = function (message, url, line, column, error) {
-                // Collect error data
-                // and send to server
-                xhrPost(`${base_url}/error`, {
-                    data: {
-                        message: message,
-                        url: url,
-                        line: line,
-                        column: column,
-                        error: error,
-                    },
-                    release: release,
-                });
+            // Listen to uncaught errors
+            window.addEventListener("error", onError);
 
-                return true;
-            };
+            // Listen to uncaught promises rejections
+            window.addEventListener("unhandledrejection", onError);
         },
     };
 })();
