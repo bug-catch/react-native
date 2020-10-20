@@ -9,7 +9,31 @@
 }(this, function() {
 "use strict";
 const Bugcatch = (function () {
-    // Post request
+    /*
+     * Default options object
+     */
+    const options = {
+        base_url: "",
+        release: "0.0.0",
+        disableError: false,
+        disableUnhandledRejection: false,
+    };
+
+    /*
+     * Set options object
+     *
+     * @param {object} user options
+     */
+    const setOptions = (userOptions) => {
+        Object.assign(options, userOptions);
+    };
+
+    /*
+     * Post request
+     *
+     * @param {string} url address to post to
+     * @param {object} data object to send
+     */
     const xhrPost = (url, data) => {
         try {
             const xhr = new XMLHttpRequest();
@@ -28,14 +52,13 @@ const Bugcatch = (function () {
          * @param {string} base_url of bug-catch/server
          * @param {string} release version of web-app
          */
-        init: function (options) {
-            const base_url = options.base_url || "";
-            const release = options.release || "0.0.0";
+        init: function (userOptions) {
+            setOptions(userOptions);
 
             window.onerror = function (message, url, line, column, error) {
                 // Collect error data
                 // and send to server
-                xhrPost(`${base_url}/error`, {
+                xhrPost(`${options.base_url}/error`, {
                     data: {
                         message: message,
                         url: url,
@@ -43,7 +66,7 @@ const Bugcatch = (function () {
                         column: column,
                         error: error,
                     },
-                    release: release,
+                    release: options.release,
                 });
 
                 return true;
