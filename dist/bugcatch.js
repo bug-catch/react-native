@@ -45,6 +45,30 @@ const Bugcatch = (function () {
         }
     };
 
+    /*
+     * Handle error events
+     *
+     * @param {object} error event object
+     */
+    const onError = (evt) => {
+        // Collect error data from event
+        const data = {
+            message: evt.message,
+            filename: evt.filename,
+            line: evt.lineno,
+            column: evt.colno,
+            error: evt.error,
+        };
+
+        // Send incident data to server
+        xhrPost(`${options.base_url}/error`, {
+            data: data,
+            release: options.release,
+        });
+
+        return true;
+    };
+
     return {
         /*
          * Initialise bug-catch to catch all errors
@@ -55,22 +79,8 @@ const Bugcatch = (function () {
         init: function (userOptions) {
             setOptions(userOptions);
 
-            window.onerror = function (message, url, line, column, error) {
-                // Collect error data
-                // and send to server
-                xhrPost(`${options.base_url}/error`, {
-                    data: {
-                        message: message,
-                        url: url,
-                        line: line,
-                        column: column,
-                        error: error,
-                    },
-                    release: options.release,
-                });
-
-                return true;
-            };
+            // Listen to uncaught errors
+            window.addEventListener("error", onError);
         },
     };
 })();
