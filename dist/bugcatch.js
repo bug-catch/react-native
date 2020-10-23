@@ -114,10 +114,12 @@ const Bugcatch = (function () {
             setOptions(userOptions);
 
             // Listen to uncaught errors
-            window.addEventListener("error", onError);
+            if (!options.disableError)
+                window.addEventListener("error", onError);
 
             // Listen to uncaught promises rejections
-            window.addEventListener("unhandledrejection", onError);
+            if (!options.disableUnhandledRejection)
+                window.addEventListener("unhandledrejection", onError);
         },
     };
 })();
