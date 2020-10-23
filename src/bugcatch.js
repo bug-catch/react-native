@@ -52,7 +52,6 @@ const Bugcatch = (function () {
             data.type = evt.type;
             data.message = evt.message;
             data.filename = evt.filename;
-            data.location = window.location.href;
             data.line = evt.lineno || -1;
             data.column = evt.colno || -1;
             data.error = {
@@ -65,7 +64,6 @@ const Bugcatch = (function () {
             data.type = evt.type;
             data.message = evt.reason.message;
             data.filename = "";
-            data.location = window.location.href;
             data.line = -1;
             data.column = -1;
             data.error = {
@@ -90,6 +88,7 @@ const Bugcatch = (function () {
         xhrPost(`${options.base_url}/error`, {
             data: data,
             release: options.release,
+            location: window.location.href,
         });
 
         return true;
