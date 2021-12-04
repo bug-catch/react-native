@@ -1,4 +1,6 @@
 "use strict";
+import { initVitals, vitalsCallback } from "./vitals";
+
 const Bugcatch = (function () {
     /*
      * Default options object
@@ -110,8 +112,12 @@ const Bugcatch = (function () {
             // Listen to uncaught promises rejections
             if (!options.disableUnhandledRejection)
                 window.addEventListener("unhandledrejection", onError);
+
+            // Web Vitals
+            initVitals(vitalsCallback);
         },
     };
 })();
 
-module.exports = Bugcatch;
+// module.exports = Bugcatch;
+export default Bugcatch;
