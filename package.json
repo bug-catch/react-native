@@ -9,17 +9,16 @@
         "url": "https://github.com/hmerritt"
     },
     "scripts": {
-        "build": "gulp build",
+        "build": "npx webpack",
         "test": "jest",
         "test:watch": "jest --watch"
     },
     "dependencies": {},
     "devDependencies": {
         "eslint": "^7.8.1",
-        "gulp": "^4.0.2",
-        "gulp-prettier": "^3.0.0",
-        "gulp-umd": "^2.0.0",
-        "prettier": "^2.1.1"
+        "prettier": "^2.1.1",
+        "webpack": "^5.64.4",
+        "webpack-cli": "^4.9.1"
     },
     "keywords": [
         "bugs",
