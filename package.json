@@ -9,12 +9,17 @@
         "url": "https://github.com/hmerritt"
     },
     "scripts": {
-        "build": "npx webpack",
+        "build": "webpack",
         "test": "jest",
         "test:watch": "jest --watch"
     },
-    "dependencies": {},
+    "dependencies": {
+        "perfume.js": "^6.3.0"
+    },
     "devDependencies": {
+        "@babel/core": "^7.16.0",
+        "@babel/preset-env": "^7.16.4",
+        "babel-loader": "^8.2.3",
         "eslint": "^7.8.1",
         "prettier": "^2.1.1",
         "webpack": "^5.64.4",

@@ -1,14 +1,21 @@
-// webpack.config.js
+const path = require("path");
+
 module.exports = {
-    mode: "production", // "development"
-    entry: "./src/bugcatch.js",
+    entry: path.resolve(__dirname, "src/index.js"),
     output: {
+        path: path.resolve(__dirname, "dist"),
         filename: "bugcatch.js",
-        library: {
-            type: "umd",
-            name: "bugcatch",
-        },
-        // prevent error: `Uncaught ReferenceError: self is not define`
-        globalObject: "this",
+        library: "bugcatch",
+        libraryTarget: "umd",
     },
+    module: {
+        rules: [
+            {
+                test: /\.(js)$/,
+                exclude: /node_modules/,
+                use: "babel-loader",
+            },
+        ],
+    },
+    mode: "production", // "development"
 };
