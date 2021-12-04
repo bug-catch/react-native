@@ -8,6 +8,7 @@ const Bugcatch = (function () {
     const options = {
         base_url: "",
         release: "0.0.0",
+        disableWebVitals: false,
         disableError: false,
         disableUnhandledRejection: false,
     };
@@ -114,7 +115,7 @@ const Bugcatch = (function () {
                 window.addEventListener("unhandledrejection", onError);
 
             // Web Vitals
-            initVitals(vitalsCallback);
+            if (!options.disableWebVitals) initVitals(vitalsCallback);
         },
     };
 })();
