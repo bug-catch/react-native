@@ -18,9 +18,10 @@ $ npm install --save @bug-catch/browser
 
 ```javascript
 Bugcatch.init({
-	base_url: "https://example.com/bugcatch",
-	release:  "2.1.0",
-	          ^^^^^^^ --> process.env.npm_package_version
+    base_url: "https://example.com/bugcatch",
+    release: "2.1.0",
+    //       ^^^^^^^ --> process.env.npm_package_version
+    disableWebVitals: false,
     disableError: false,
     disableUnhandledRejection: false,
 });
@@ -43,6 +44,10 @@ window.addEventListener("error", onError);
 // Listen to uncaught promises rejections
 window.addEventListener("unhandledrejection", onError);
 ```
+
+### [Web Vitals](https://web.dev/vitals)
+
+bugcatch also gathers web vitals data on things like LCP (Largest Contentful Paint) & TTFB (Time To First Byte).
 
 <br>
 
