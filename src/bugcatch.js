@@ -113,3 +113,5 @@ const Bugcatch = (function () {
         },
     };
 })();
+
+module.exports = Bugcatch;
