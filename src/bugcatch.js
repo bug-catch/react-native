@@ -1,5 +1,6 @@
 "use strict";
 import { initVitals, vitalsCallback } from "./vitals";
+import { xhrPost } from "./fetch";
 
 /**
  * Default options object
@@ -15,27 +16,10 @@ const options = {
 /**
  * Set options object
  *
- * @param {object} user options
+ * @param {object} userOptions global options object
  */
 const setOptions = (userOptions) => {
     Object.assign(options, userOptions);
-};
-
-/**
- * Post request
- *
- * @param {string} url address to post to
- * @param {object} data object to send
- */
-const xhrPost = (url, data) => {
-    try {
-        const xhr = new XMLHttpRequest();
-        xhr.open("POST", url, true);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.send(JSON.stringify(data));
-    } catch (error) {
-        console.log(error);
-    }
 };
 
 /**
@@ -99,7 +83,7 @@ const onError = (evt) => {
 /**
  * Initialise bug-catch to catch all errors + gather web vitals data
  *
- * @param {object} user options
+ * @param {object} userOptions global options object
  */
 export const init = (userOptions) => {
     setOptions(userOptions);
@@ -112,5 +96,5 @@ export const init = (userOptions) => {
         window.addEventListener("unhandledrejection", onError);
 
     // Web Vitals
-    if (!options.disableWebVitals) initVitals(vitalsCallback);
+    if (!options.disableWebVitals) initVitals(vitalsCallback, userOptions);
 };
