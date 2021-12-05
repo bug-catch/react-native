@@ -17,7 +17,7 @@ $ npm install --save @bug-catch/browser
 Call Bugcatch as-soon-as-possible within your code.
 
 ```javascript
-Bugcatch({
+bugcatch.init({
     base_url: "https://example.com/bugcatch",
 
     // Optional
@@ -47,6 +47,25 @@ Bugcatch({
 **Thats it!** - sit back and try not to panic as the bugs roll in!
 
 <br>
+
+You can also use the `recordEvent` method to record custom events with data attached (the data can be of any type and size).
+
+```javascript
+bugcatch.recordEvent(name, data, userOptions);
+
+// Crude Example,
+// An event for users which stay on the page longer than 10 minutes
+setTimeout(function () {
+    bugcatch.recordEvent(
+        "loyal_viewer",
+        { timeOnPage: "10 minutes" },
+        {
+            base_url: "https://example.com/bugcatch",
+            release: "2.1.0",
+        }
+    );
+}, 1000 * 60 * 10);
+```
 
 ## How It Works
 
