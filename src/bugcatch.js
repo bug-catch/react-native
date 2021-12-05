@@ -13,7 +13,7 @@ const options = {
     disableUnhandledRejection: false,
     requiredVitals: [
         "cls",
-        "dataConsumption",
+        // "dataConsumption",
         "fcp",
         "fid",
         "fp",
@@ -23,6 +23,7 @@ const options = {
         "networkInformation",
         "storageEstimate",
         "tbt",
+        "ttfb",
     ],
 };
 
