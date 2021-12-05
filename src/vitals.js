@@ -1,6 +1,6 @@
 "use strict";
 import Perfume from "perfume.js";
-import { xhrPost } from "./api";
+import { xhrPost, newEvent } from "./api";
 
 // Global vitals object
 const vitalsData = {};
@@ -9,15 +9,16 @@ const vitalsData = {};
  * Send all web vitals that have been gathered (some may be left out as the data is collected individually)
  * @param {object} userOptions global options object
  */
-const sendVitals = (userOptions) => {
+const sendVitals = (vitalsData, userOptions) => {
     if (vitalsData["hasSent"]) return false;
 
+    console.log("[Bug Catch] vitalsData", vitalsData);
+
     // Send web vitals data to server
-    xhrPost(`${userOptions.base_url}/vitals`, {
-        data: vitalsData,
-        release: userOptions.release,
-        location: window.location.href,
-    });
+    xhrPost(
+        `${userOptions.base_url}/vitals`,
+        newEvent("vitals", vitalsData, userOptions)
+    );
 
     vitalsData["hasSent"] = true;
 };
@@ -34,9 +35,9 @@ export const initVitals = (userOptions) => {
             if (!vitalsData["navigatorInformation"])
                 vitalsData["navigatorInformation"] = navigatorInformation;
 
-            // console.log(Object.keys(vitalsData).length, vitalsData);
-
             vitalsData[metricName] = data;
+
+            // console.log(Object.keys(vitalsData).length, vitalsData);
 
             // Check required web vitals data has been collected
             const hasRequiredVitals = () => {
@@ -55,8 +56,7 @@ export const initVitals = (userOptions) => {
                     userOptions.requiredVitals.length &&
                 hasRequiredVitals()
             ) {
-                console.log(vitalsData);
-                sendVitals(userOptions);
+                sendVitals(vitalsData, userOptions);
             }
         },
     });
