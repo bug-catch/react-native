@@ -24,11 +24,9 @@ const sendVitals = (userOptions) => {
 
 /**
  * Web Vitals (via perfume.js)
- *
- * @param {function} cb callback for data collection
  * @param {object} userOptions global options object
  */
-export const initVitals = (cb, userOptions) => {
+export const initVitals = (userOptions) => {
     new Perfume({
         analyticsTracker: (options) => {
             const { metricName, data, navigatorInformation } = options;

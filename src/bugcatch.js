@@ -1,5 +1,5 @@
 "use strict";
-import { initVitals, vitalsCallback } from "./vitals";
+import { initVitals } from "./vitals";
 import { xhrPost } from "./fetch";
 
 /**
@@ -15,7 +15,6 @@ const options = {
 
 /**
  * Set options object
- *
  * @param {object} userOptions global options object
  */
 const setOptions = (userOptions) => {
@@ -24,7 +23,6 @@ const setOptions = (userOptions) => {
 
 /**
  * Handle error events
- *
  * @param {object} error event object
  */
 const onError = (evt) => {
@@ -82,7 +80,6 @@ const onError = (evt) => {
 
 /**
  * Initialise bug-catch to catch all errors + gather web vitals data
- *
  * @param {object} userOptions global options object
  */
 export const init = (userOptions) => {
@@ -96,5 +93,5 @@ export const init = (userOptions) => {
         window.addEventListener("unhandledrejection", onError);
 
     // Web Vitals
-    if (!options.disableWebVitals) initVitals(vitalsCallback, userOptions);
+    if (!options.disableWebVitals) initVitals(userOptions);
 };
