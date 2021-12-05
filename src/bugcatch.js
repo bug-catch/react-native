@@ -11,6 +11,19 @@ const options = {
     disableWebVitals: false,
     disableError: false,
     disableUnhandledRejection: false,
+    requiredVitals: [
+        "cls",
+        "dataConsumption",
+        "fcp",
+        "fid",
+        "fp",
+        "lcp",
+        "navigationTiming",
+        "navigatorInformation",
+        "networkInformation",
+        "storageEstimate",
+        "tbt",
+    ],
 };
 
 /**
@@ -93,5 +106,5 @@ export const init = (userOptions) => {
         window.addEventListener("unhandledrejection", onError);
 
     // Web Vitals
-    if (!options.disableWebVitals) initVitals(userOptions);
+    if (!options.disableWebVitals) initVitals(options);
 };

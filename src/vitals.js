@@ -34,10 +34,30 @@ export const initVitals = (userOptions) => {
             if (!vitalsData["navigatorInformation"])
                 vitalsData["navigatorInformation"] = navigatorInformation;
 
-            // console.log(Object.keys(vitalsData).length, metricName, data);
+            // console.log(Object.keys(vitalsData).length, vitalsData);
 
             vitalsData[metricName] = data;
-            if (Object.keys(vitalsData).length >= 5) sendVitals(userOptions);
+
+            // Check required web vitals data has been collected
+            const hasRequiredVitals = () => {
+                let isTrue = true;
+
+                userOptions.requiredVitals.forEach((prop) => {
+                    if (!vitalsData.hasOwnProperty(prop)) isTrue = false;
+                });
+
+                return isTrue;
+            };
+
+            // Check required data has been collected
+            if (
+                Object.keys(vitalsData).length >=
+                    userOptions.requiredVitals.length &&
+                hasRequiredVitals()
+            ) {
+                console.log(vitalsData);
+                sendVitals(userOptions);
+            }
         },
     });
 };
