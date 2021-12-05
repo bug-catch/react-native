@@ -1,3 +1,5 @@
-import Bugcatch from "./Bugcatch";
+import { init } from "./Bugcatch";
+
+const Bugcatch = init;
 
 export default Bugcatch;
