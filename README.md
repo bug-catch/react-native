@@ -14,16 +14,33 @@ $ npm install --save @bug-catch/browser
 
 ### Initiate
 
-`init` Bugcatch as-soon-as-possible within your code.
+Call Bugcatch as-soon-as-possible within your code.
 
 ```javascript
-Bugcatch.init({
+Bugcatch({
     base_url: "https://example.com/bugcatch",
+
+    // Optional
     release: "2.1.0",
     //       ^^^^^^^ --> process.env.npm_package_version
     disableWebVitals: false,
     disableError: false,
     disableUnhandledRejection: false,
+    requiredVitals: [
+        // Uses perfume.js for web vitals,
+        // You have the option to add/remove unwanted vitals here
+        "cls",
+        "dataConsumption",
+        "fcp",
+        "fid",
+        "fp",
+        "lcp",
+        "navigationTiming",
+        "navigatorInformation",
+        "networkInformation",
+        "storageEstimate",
+        "tbt",
+    ],
 });
 ```
 
@@ -47,7 +64,7 @@ window.addEventListener("unhandledrejection", onError);
 
 ### [Web Vitals](https://web.dev/vitals)
 
-bugcatch also gathers web vitals data on things like LCP (Largest Contentful Paint) & TTFB (Time To First Byte).
+bugcatch also gathers web vitals data. This can play a very important role when squashing bugs, but also general optimisation.
 
 <br>
 
