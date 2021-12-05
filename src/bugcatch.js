@@ -1,6 +1,6 @@
 "use strict";
 import { initVitals } from "./vitals";
-import { xhrPost } from "./fetch";
+import { xhrPost, newEvent } from "./api";
 
 /**
  * Default options object
@@ -82,13 +82,22 @@ const onError = (evt) => {
     }
 
     // Send incident data to server
-    xhrPost(`${options.base_url}/error`, {
-        data: data,
-        release: options.release,
-        location: window.location.href,
-    });
+    xhrPost(`${options.base_url}/event`, newEvent("error", data, options));
 
     return true;
+};
+
+/**
+ * Create a new event and submit the data to the API
+ * (User-facing abstraction above the 'newEvent' function)
+ * @param {string} name event name/type eg, "error"
+ * @param {*} data data attached to event
+ */
+export const recordEvent = (name, data, userOptions) => {
+    setOptions(userOptions);
+
+    // Send incident data to server
+    xhrPost(`${options.base_url}/event`, newEvent(name, data, options));
 };
 
 /**

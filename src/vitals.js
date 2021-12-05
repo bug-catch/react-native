@@ -1,6 +1,6 @@
 "use strict";
 import Perfume from "perfume.js";
-import { xhrPost } from "./fetch";
+import { xhrPost } from "./api";
 
 // Global vitals object
 const vitalsData = {};
