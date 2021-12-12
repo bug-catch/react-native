@@ -84,7 +84,10 @@ const onError = (evt) => {
     }
 
     // Send incident data to server
-    xhrPost(`${options.base_url}/event`, newEvent("error", data, options));
+    xhrPost(
+        `${options.base_url}/catch/event`,
+        newEvent("error", data, options)
+    );
 
     return true;
 };

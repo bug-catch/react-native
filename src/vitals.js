@@ -17,7 +17,7 @@ const sendVitals = (vitalsData, userOptions) => {
 
     // Send web vitals data to server
     xhrPost(
-        `${userOptions.base_url}/vitals`,
+        `${userOptions.base_url}/catch/vitals`,
         newEvent("vitals", vitalsData, userOptions)
     );
 
