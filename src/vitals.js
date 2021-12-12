@@ -12,7 +12,8 @@ const vitalsData = {};
 const sendVitals = (vitalsData, userOptions) => {
     if (vitalsData["hasSent"]) return false;
 
-    console.log("[Bug Catch] vitalsData", vitalsData);
+    if (userOptions.logEvents)
+        console.log("[Bug Catch] vitalsData", vitalsData);
 
     // Send web vitals data to server
     xhrPost(
@@ -36,8 +37,6 @@ export const initVitals = (userOptions) => {
                 vitalsData["navigatorInformation"] = navigatorInformation;
 
             vitalsData[metricName] = data;
-
-            // console.log(Object.keys(vitalsData).length, vitalsData);
 
             // Check required web vitals data has been collected
             const hasRequiredVitals = () => {

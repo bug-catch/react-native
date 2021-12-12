@@ -8,6 +8,7 @@ import { xhrPost, newEvent } from "./api";
 const options = {
     base_url: "",
     release: "0.0.0",
+    logEvents: false,
     disableWebVitals: false,
     disableError: false,
     disableUnhandledRejection: false,
@@ -96,6 +97,9 @@ const onError = (evt) => {
  */
 export const recordEvent = (name, data, userOptions) => {
     setOptions(userOptions);
+
+    if (userOptions.logEvents)
+        console.log(`[Bug Catch] EVENT: ${name}`, { name, data });
 
     // Send incident data to server
     xhrPost(`${options.base_url}/event`, newEvent(name, data, options));
