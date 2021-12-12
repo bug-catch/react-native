@@ -2,12 +2,33 @@
 import { initVitals } from "./vitals";
 import { xhrPost, newEvent } from "./api";
 
+window.requestIdleCallback =
+    window.requestIdleCallback ||
+    function (cb) {
+        var start = Date.now();
+        return setTimeout(function () {
+            cb({
+                didTimeout: false,
+                timeRemaining: function () {
+                    return Math.max(0, 50 - (Date.now() - start));
+                },
+            });
+        }, 1);
+    };
+
+window.cancelIdleCallback =
+    window.cancelIdleCallback ||
+    function (id) {
+        clearTimeout(id);
+    };
+
 /**
  * Default options object
  */
 const options = {
     base_url: "",
     release: "0.0.0",
+    logEvents: false,
     disableWebVitals: false,
     disableError: false,
     disableUnhandledRejection: false,
@@ -83,7 +104,10 @@ const onError = (evt) => {
     }
 
     // Send incident data to server
-    xhrPost(`${options.base_url}/event`, newEvent("error", data, options));
+    xhrPost(
+        `${options.base_url}/catch/event`,
+        newEvent("error", data, options)
+    );
 
     return true;
 };
@@ -96,6 +120,9 @@ const onError = (evt) => {
  */
 export const recordEvent = (name, data, userOptions) => {
     setOptions(userOptions);
+
+    if (options.logEvents)
+        console.log(`[Bug Catch] Event: ${name}`, { name, data });
 
     // Send incident data to server
     xhrPost(`${options.base_url}/event`, newEvent(name, data, options));

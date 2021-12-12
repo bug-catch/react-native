@@ -25,6 +25,6 @@ export const xhrPost = (url, data) => {
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.send(JSON.stringify(data));
     } catch (error) {
-        console.log(error);
+        console.error("[Bug Catch] XHR Error:", error);
     }
 };
