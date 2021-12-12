@@ -46,10 +46,7 @@ export const initVitals = (userOptions) => {
         (Date.now() - store.lastSent) / 3600000 / 24 < 14 // Time since last vital sent is less than 14 days
     ) {
         if (userOptions.logEvents)
-            console.log(
-                "[Bug Catch] web-vitals limit has been reached",
-                vitalsData
-            );
+            console.log("[Bug Catch] web-vitals limit has been reached");
         return false;
     }
 
@@ -79,7 +76,7 @@ export const initVitals = (userOptions) => {
                     userOptions.requiredVitals.length &&
                 hasRequiredVitals()
             ) {
-                sendVitals(vitalsData, userOptions);
+                requestIdleCallback(() => sendVitals(vitalsData, userOptions));
             }
         },
     });

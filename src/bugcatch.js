@@ -2,6 +2,26 @@
 import { initVitals } from "./vitals";
 import { xhrPost, newEvent } from "./api";
 
+window.requestIdleCallback =
+    window.requestIdleCallback ||
+    function (cb) {
+        var start = Date.now();
+        return setTimeout(function () {
+            cb({
+                didTimeout: false,
+                timeRemaining: function () {
+                    return Math.max(0, 50 - (Date.now() - start));
+                },
+            });
+        }, 1);
+    };
+
+window.cancelIdleCallback =
+    window.cancelIdleCallback ||
+    function (id) {
+        clearTimeout(id);
+    };
+
 /**
  * Default options object
  */
@@ -101,8 +121,8 @@ const onError = (evt) => {
 export const recordEvent = (name, data, userOptions) => {
     setOptions(userOptions);
 
-    if (userOptions.logEvents)
-        console.log(`[Bug Catch] EVENT: ${name}`, { name, data });
+    if (options.logEvents)
+        console.log(`[Bug Catch] Event: ${name}`, { name, data });
 
     // Send incident data to server
     xhrPost(`${options.base_url}/event`, newEvent(name, data, options));
