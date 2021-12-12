@@ -14,7 +14,7 @@ const sendVitals = (vitalsData, userOptions) => {
     vitalsData["hasSent"] = true;
 
     if (userOptions.logEvents)
-        console.log("[Bug Catch] vitalsData", vitalsData);
+        console.log("[Bug Catch] Web-Vitals data", vitalsData);
 
     // Send web vitals data to server
     xhrPost(
