@@ -11,6 +11,7 @@ const vitalsData = {};
  */
 const sendVitals = (vitalsData, userOptions) => {
     if (vitalsData["hasSent"]) return false;
+    vitalsData["hasSent"] = true;
 
     if (userOptions.logEvents)
         console.log("[Bug Catch] vitalsData", vitalsData);
@@ -21,7 +22,14 @@ const sendVitals = (vitalsData, userOptions) => {
         newEvent("vitals", vitalsData, userOptions)
     );
 
-    vitalsData["hasSent"] = true;
+    //
+    window.localStorage.setItem(
+        "bug-catch/vitals",
+        JSON.stringify({
+            lastSent: Date.now(),
+            release: userOptions.release,
+        })
+    );
 };
 
 /**
@@ -29,6 +37,22 @@ const sendVitals = (vitalsData, userOptions) => {
  * @param {object} userOptions global options object
  */
 export const initVitals = (userOptions) => {
+    const store = JSON.parse(window.localStorage.getItem("bug-catch/vitals"));
+
+    // Only send Vitals once per version (or after 2 weeks)
+    if (
+        store &&
+        store.release === userOptions.release &&
+        (Date.now() - store.lastSent) / 3600000 / 24 < 14 // Time since last vital sent is less than 14 days
+    ) {
+        if (userOptions.logEvents)
+            console.log(
+                "[Bug Catch] web-vitals limit has been reached",
+                vitalsData
+            );
+        return false;
+    }
+
     new Perfume({
         analyticsTracker: (options) => {
             const { metricName, data, navigatorInformation } = options;
