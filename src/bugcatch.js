@@ -1,6 +1,10 @@
 "use strict";
+import {
+    setJSExceptionHandler,
+    getJSExceptionHandler,
+} from "react-native-exception-handler";
 import { initVitals } from "./vitals";
-import { post, newEvent } from "./api";
+import { post, newEvent, isReactNative } from "./api";
 
 /**
  * Default options object
@@ -112,13 +116,25 @@ export const recordEvent = (name, data, userOptions) => {
 export const init = (userOptions) => {
     setOptions(userOptions);
 
-    // Listen to uncaught errors
-    if (!options.disableError) window.addEventListener("error", onError);
+    if (!isReactNative) {
+        if (!options.disableError)
+            // Listen to uncaught errors
+            window.addEventListener("error", onError);
 
-    // Listen to uncaught promises rejections
-    if (!options.disableUnhandledRejection)
-        window.addEventListener("unhandledrejection", onError);
+        // Listen to uncaught promises rejections
+        if (!options.disableUnhandledRejection)
+            window.addEventListener("unhandledrejection", onError);
 
-    // Web Vitals
-    if (!options.disableWebVitals) initVitals(options);
+        // Web Vitals
+        if (!options.disableWebVitals) initVitals(options);
+    } else {
+        // Register error handler for react-native
+        setJSExceptionHandler((error, isFatal) => {
+            // This is your custom global error handler
+            // You do stuff like show an error dialog
+            // or hit google analytics to track crashes
+            // or hit a custom api to inform the dev team.
+            console.log(error, isFatal);
+        });
+    }
 };

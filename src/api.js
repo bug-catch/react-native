@@ -30,6 +30,16 @@ export const post = (url, data) => {
 };
 
 /**
+ * Detects react-native runtime
+ * @returns true if in react-native
+ */
+export const isReactNative = () => {
+    return (
+        typeof navigator != "undefined" && navigator.product == "ReactNative"
+    );
+};
+
+/**
  * Polyfill for requestIdleCallback, one that also detects react-native
  */
 export const idleCallback = (cb) => {
@@ -47,7 +57,7 @@ export const idleCallback = (cb) => {
 
     // React native
     // (No `window` in react-native)
-    if (typeof navigator != "undefined" && navigator.product == "ReactNative") {
+    if (isReactNative()) {
         return requestIdleCallbackPollyFill(cb);
     } else {
         return window.requestIdleCallback

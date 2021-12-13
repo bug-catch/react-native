@@ -16,7 +16,8 @@
     "dependencies": {
         "@babel/runtime": "^7.16.3",
         "@react-native-async-storage/async-storage": "^1.15.14",
-        "perfume.js": "^6.3.0"
+        "perfume.js": "^6.3.0",
+        "react-native-exception-handler": "^2.10.10"
     },
     "devDependencies": {
         "@babel/core": "^7.16.0",
