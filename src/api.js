@@ -32,7 +32,7 @@ export const post = (url, data) => {
 /**
  * Polyfill for requestIdleCallback, one that also detects react-native
  */
-export const idleCallback = () => {
+export const idleCallback = (cb) => {
     const requestIdleCallbackPollyFill = (cb) => {
         var start = Date.now();
         return setTimeout(function () {
@@ -48,8 +48,10 @@ export const idleCallback = () => {
     // React native
     // (No `window` in react-native)
     if (typeof navigator != "undefined" && navigator.product == "ReactNative") {
-        return requestIdleCallbackPollyFill;
+        return requestIdleCallbackPollyFill(cb);
     } else {
-        return window.requestIdleCallback || requestIdleCallbackPollyFill;
+        return window.requestIdleCallback
+            ? window.requestIdleCallback(cb)
+            : requestIdleCallbackPollyFill(cb);
     }
 };
