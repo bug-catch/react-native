@@ -28,3 +28,28 @@ export const post = (url, data) => {
         console.error("[Bug Catch] XHR post error:", error);
     }
 };
+
+/**
+ * Polyfill for requestIdleCallback, one that also detects react-native
+ */
+export const idleCallback = () => {
+    const requestIdleCallbackPollyFill = (cb) => {
+        var start = Date.now();
+        return setTimeout(function () {
+            cb({
+                didTimeout: false,
+                timeRemaining: function () {
+                    return Math.max(0, 50 - (Date.now() - start));
+                },
+            });
+        }, 1);
+    };
+
+    // React native
+    // (No `window` in react-native)
+    if (typeof navigator != "undefined" && navigator.product == "ReactNative") {
+        return requestIdleCallbackPollyFill;
+    } else {
+        return window.requestIdleCallback || requestIdleCallbackPollyFill;
+    }
+};

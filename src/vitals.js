@@ -1,6 +1,6 @@
 "use strict";
 import Perfume from "perfume.js";
-import { post, newEvent } from "./api";
+import { post, newEvent, idleCallback } from "./api";
 
 // Global vitals object
 const vitalsData = {};
@@ -76,7 +76,7 @@ export const initVitals = (userOptions) => {
                     userOptions.requiredVitals.length &&
                 hasRequiredVitals()
             ) {
-                requestIdleCallback(() => sendVitals(vitalsData, userOptions));
+                idleCallback(() => sendVitals(vitalsData, userOptions));
             }
         },
     });
