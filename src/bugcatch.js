@@ -1,10 +1,6 @@
 "use strict";
-import {
-    setJSExceptionHandler,
-    getJSExceptionHandler,
-} from "react-native-exception-handler";
-import { initVitals } from "./vitals";
-import { post, newEvent, isReactNative } from "./api";
+import { setJSExceptionHandler } from "react-native-exception-handler";
+import { post, newEvent } from "./api";
 
 /**
  * Default options object
