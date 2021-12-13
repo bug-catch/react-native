@@ -1,26 +1,6 @@
 "use strict";
-import { initVitals } from "./vitals";
-import { xhrPost, newEvent } from "./api";
-
-window.requestIdleCallback =
-    window.requestIdleCallback ||
-    function (cb) {
-        var start = Date.now();
-        return setTimeout(function () {
-            cb({
-                didTimeout: false,
-                timeRemaining: function () {
-                    return Math.max(0, 50 - (Date.now() - start));
-                },
-            });
-        }, 1);
-    };
-
-window.cancelIdleCallback =
-    window.cancelIdleCallback ||
-    function (id) {
-        clearTimeout(id);
-    };
+import { setJSExceptionHandler } from "react-native-exception-handler";
+import { post, newEvent } from "./api";
 
 /**
  * Default options object
@@ -29,23 +9,6 @@ const options = {
     base_url: "",
     release: "0.0.0",
     logEvents: false,
-    disableWebVitals: false,
-    disableError: false,
-    disableUnhandledRejection: false,
-    requiredVitals: [
-        "cls",
-        // "dataConsumption",
-        "fcp",
-        "fid",
-        "fp",
-        "lcp",
-        "navigationTiming",
-        "navigatorInformation",
-        "networkInformation",
-        "storageEstimate",
-        "tbt",
-        "ttfb",
-    ],
 };
 
 /**
@@ -104,10 +67,7 @@ const onError = (evt) => {
     }
 
     // Send incident data to server
-    xhrPost(
-        `${options.base_url}/catch/event`,
-        newEvent("error", data, options)
-    );
+    post(`${options.base_url}/catch/event`, newEvent("error", data, options));
 
     return true;
 };
@@ -125,7 +85,7 @@ export const recordEvent = (name, data, userOptions) => {
         console.log(`[Bug Catch] Event: ${name}`, { name, data });
 
     // Send incident data to server
-    xhrPost(`${options.base_url}/event`, newEvent(name, data, options));
+    post(`${options.base_url}/event`, newEvent(name, data, options));
 };
 
 /**
@@ -135,13 +95,12 @@ export const recordEvent = (name, data, userOptions) => {
 export const init = (userOptions) => {
     setOptions(userOptions);
 
-    // Listen to uncaught errors
-    if (!options.disableError) window.addEventListener("error", onError);
-
-    // Listen to uncaught promises rejections
-    if (!options.disableUnhandledRejection)
-        window.addEventListener("unhandledrejection", onError);
-
-    // Web Vitals
-    if (!options.disableWebVitals) initVitals(options);
+    // Register error handler for react-native
+    setJSExceptionHandler((error, isFatal) => {
+        // This is your custom global error handler
+        // You do stuff like show an error dialog
+        // or hit google analytics to track crashes
+        // or hit a custom api to inform the dev team.
+        console.log(error, isFatal);
+    });
 };

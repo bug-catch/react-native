@@ -1,40 +1,35 @@
 {
-    "name": "@bug-catch/browser",
-    "version": "3.0.1",
-    "main": "./dist/bugcatch.js",
-    "homepage": "https://github.com/bug-catch/browser#readme",
-    "description": "Catch all errors and log custom events within any website.",
+    "name": "@bug-catch/react-native",
+    "version": "0.9.0",
+    "main": "./src/bugcatch.js",
+    "homepage": "https://github.com/bug-catch/react-native#readme",
+    "description": "Catch all errors and log custom events within react-native app.",
     "author": {
         "name": "Harry Merritt",
         "url": "https://github.com/hmerritt"
     },
     "scripts": {
-        "build": "webpack",
         "test": "jest",
         "test:watch": "jest --watch"
     },
     "dependencies": {
-        "perfume.js": "^6.3.0"
+        "@react-native-async-storage/async-storage": "^1.15.14",
+        "react-native-exception-handler": "^2.10.10"
     },
     "devDependencies": {
-        "@babel/core": "^7.16.0",
-        "@babel/preset-env": "^7.16.4",
-        "babel-loader": "^8.2.3",
         "eslint": "^7.8.1",
-        "prettier": "^2.1.1",
-        "webpack": "^5.64.4",
-        "webpack-cli": "^4.9.1"
+        "prettier": "^2.1.1"
     },
     "keywords": [
         "bugs",
         "bug-catch"
     ],
     "bugs": {
-        "url": "https://github.com/bug-catch/browser/issues"
+        "url": "https://github.com/bug-catch/react-native/issues"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/bug-catch/browser.git"
+        "url": "git+https://github.com/bug-catch/react-native.git"
     },
     "license": "Apache-2.0"
 }
