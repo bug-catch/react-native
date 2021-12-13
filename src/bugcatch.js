@@ -13,23 +13,6 @@ const options = {
     base_url: "",
     release: "0.0.0",
     logEvents: false,
-    disableWebVitals: false,
-    disableError: false,
-    disableUnhandledRejection: false,
-    requiredVitals: [
-        "cls",
-        // "dataConsumption",
-        "fcp",
-        "fid",
-        "fp",
-        "lcp",
-        "navigationTiming",
-        "navigatorInformation",
-        "networkInformation",
-        "storageEstimate",
-        "tbt",
-        "ttfb",
-    ],
 };
 
 /**
@@ -116,25 +99,12 @@ export const recordEvent = (name, data, userOptions) => {
 export const init = (userOptions) => {
     setOptions(userOptions);
 
-    if (!isReactNative) {
-        if (!options.disableError)
-            // Listen to uncaught errors
-            window.addEventListener("error", onError);
-
-        // Listen to uncaught promises rejections
-        if (!options.disableUnhandledRejection)
-            window.addEventListener("unhandledrejection", onError);
-
-        // Web Vitals
-        if (!options.disableWebVitals) initVitals(options);
-    } else {
-        // Register error handler for react-native
-        setJSExceptionHandler((error, isFatal) => {
-            // This is your custom global error handler
-            // You do stuff like show an error dialog
-            // or hit google analytics to track crashes
-            // or hit a custom api to inform the dev team.
-            console.log(error, isFatal);
-        });
-    }
+    // Register error handler for react-native
+    setJSExceptionHandler((error, isFatal) => {
+        // This is your custom global error handler
+        // You do stuff like show an error dialog
+        // or hit google analytics to track crashes
+        // or hit a custom api to inform the dev team.
+        console.log(error, isFatal);
+    });
 };
