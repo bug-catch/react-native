@@ -1,5 +1,6 @@
 "use strict";
 import Perfume from "perfume.js";
+import * as storage from "./storage";
 import { post, newEvent, idleCallback } from "./api";
 
 // Global vitals object
@@ -22,22 +23,18 @@ const sendVitals = (vitalsData, userOptions) => {
         newEvent("vitals", vitalsData, userOptions)
     );
 
-    //
-    window.localStorage.setItem(
-        "bug-catch/vitals",
-        JSON.stringify({
-            lastSent: Date.now(),
-            release: userOptions.release,
-        })
-    );
+    storage.set("bug-catch/vitals", {
+        lastSent: Date.now(),
+        release: userOptions.release,
+    });
 };
 
 /**
  * Web Vitals (via perfume.js)
  * @param {object} userOptions global options object
  */
-export const initVitals = (userOptions) => {
-    const store = JSON.parse(window.localStorage.getItem("bug-catch/vitals"));
+export const initVitals = async (userOptions) => {
+    const store = await storage.get("bug-catch/vitals");
 
     // Only send Vitals once per version (or after 2 weeks)
     if (
