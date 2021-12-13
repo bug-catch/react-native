@@ -9,7 +9,6 @@
         "url": "https://github.com/hmerritt"
     },
     "scripts": {
-        "build": "webpack",
         "test": "jest",
         "test:watch": "jest --watch"
     },
