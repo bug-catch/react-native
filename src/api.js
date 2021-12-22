@@ -9,7 +9,6 @@ export const newEvent = (type, data, options) => {
         type: type,
         data: data,
         release: options.release,
-        location: window.location.href,
     };
 };
 
