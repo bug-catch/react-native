@@ -64,7 +64,8 @@ class BugCatch {
         return {
             baseUrl: this.baseUrl,
             release: this.release,
-            logEvents: this.logEvents
+            logEvents: this.logEvents,
+            disableExceptionHandler: this.disableExceptionHandler
         };
     };
 

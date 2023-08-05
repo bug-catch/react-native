@@ -15,9 +15,8 @@ export default defineConfig({
             fileName: (format) => (format === "es" ? `index.js` : `index.${format}.js`)
         },
         rollupOptions: {
-            // Don't bundle dependencies.
             // Don't bundle built-in Node.js modules.
-            external: [...Object.keys(pkg.dependencies), /^node:.*/]
+            external: ["react", "react-native", /^node:.*/]
         },
         minify: true
     },
@@ -31,7 +30,7 @@ export default defineConfig({
         environment: "happy-dom",
         setupFiles: "./__tests__/setupTests.ts",
         deps: {
-            inline: ["react", "react-native", "react-native-exception-handler"]
+            inline: ["react", "react-native"]
         },
         coverage: {
             enabled: false,

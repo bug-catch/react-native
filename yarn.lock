@@ -52,6 +52,9 @@ __metadata:
     vite-plugin-dts: ^3.5.0
     vite-tsconfig-paths: ^4.2.0
     vitest: ^0.34.1
+  peerDependencies:
+    react: "*"
+    react-native: "*"
   languageName: unknown
   linkType: soft
 
