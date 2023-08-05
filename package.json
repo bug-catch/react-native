@@ -1,24 +1,48 @@
 {
     "name": "@bug-catch/react-native",
-    "version": "1.0.0",
-    "main": "./src/bugcatch.js",
+    "version": "2.0.0",
     "homepage": "https://github.com/bug-catch/react-native#readme",
     "description": "Catch all errors and log custom events within react-native app.",
-    "author": {
-        "name": "Harry Merritt",
-        "url": "https://github.com/hmerritt"
-    },
     "scripts": {
-        "test": "jest",
-        "test:watch": "jest --watch"
+        "build": "tsc && vite build",
+        "dev": "vite",
+        "lint": "tsc",
+        "test": "vitest run",
+        "test:ui": "vitest --ui",
+        "test:watch": "vitest watch"
     },
     "dependencies": {
         "@react-native-async-storage/async-storage": "^1.15.14",
         "react-native-exception-handler": "^2.10.10"
     },
     "devDependencies": {
-        "eslint": "^7.8.1",
-        "prettier": "^2.1.1"
+        "@types/node": "^20.4.8",
+        "happy-dom": "^10.8.0",
+        "typescript": "^5.1.6",
+        "vite": "^4.4.8",
+        "vite-plugin-dts": "^3.5.0",
+        "vite-tsconfig-paths": "^4.2.0",
+        "vitest": "^0.34.1"
+    },
+    "peerDependencies": {
+        "react": "*",
+        "react-native": "*"
+    },
+    "files": [
+        "dist"
+    ],
+    "types": "./dist/index.d.ts",
+    "main": "./dist/bugcatch.umd.js",
+    "module": "./dist/index.js",
+    "exports": {
+        ".": {
+            "import": "./dist/index.js",
+            "require": "./dist/bugcatch.umd.js"
+        }
+    },
+    "author": {
+        "name": "Harry Merritt",
+        "url": "https://github.com/hmerritt"
     },
     "keywords": [
         "bugs",

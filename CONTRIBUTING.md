@@ -1,22 +1,5 @@
 # Contributing
 
-## Cloning bug-catch/react-native for development
-
-```bash
-$ git clone https://github.com/bug-catch/react-native.git
-$ cd react-native
-$ git checkout development
-$ npm install
-```
-
-## Project structure
-
-```
-.
-├── src      // source files
-├── test     // test files
-```
-
 ## Commit rules
 
 ### Commit message
@@ -41,16 +24,33 @@ It should:
     -   Merge branch : when merging branch
     -   Merge pull request : when merging PR
 
-## Code Styling
+## React import structure
 
-To ensure all code is consistently formatted, we are using `prettier` in combination with `gulp`
+Standardized way of importing files.
 
-```bash
-gulp
+1. Library imports
+2. Custom file imports (files written within this project aka, not a 3rd party dependency)
+3. Component imports
+
 ```
+// 1. Library imports
+import React from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { BrowserRouter as Router } from "react-router-dom";
 
-This will format all JavaScript code using `prettier`
+// 2. Custom file imports (files written within this project aka, not a 3rd party dependency)
+import store from "store";
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
+
+// 3. Component imports
+import App from "./App";
+```
 
 ## Tests
 
-Tests are using the [`Jest`](https://jestjs.io/) framework
+Tests are using the [`Vitest`](https://vitest.dev/) framework
+
+```
+yarn test
+```
