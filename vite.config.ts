@@ -1,28 +1,29 @@
 // @ts-nocheck
 import path from "path";
+import dts from "vite-plugin-dts";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
-
-const isDev = process.env.NODE_ENV !== "production";
+import pkg from "./package.json" assert { type: "json" };
 
 // https://vitejs.dev/config/
 export default defineConfig({
     build: {
         lib: {
-            entry: path.resolve(__dirname, "src/index.ts"),
             name: "bugcatch",
+            entry: path.resolve(__dirname, "src/index.ts"),
             fileName: (format) => `bugcatch.${format}.js`
         },
         rollupOptions: {
-            external: ["react", "react-dom", "react-native"]
+            // Don't bundle dependencies.
+            // Don't bundle built-in Node.js modules.
+            external: [...Object.keys(pkg.dependencies), /^node:.*/]
         },
-        sourcemap: isDev,
         minify: true
     },
     define: {
         "process.env": {}
     },
-    plugins: [tsconfigPaths()],
+    plugins: [tsconfigPaths(), dts()],
     test: {
         // https://vitest.dev/api/
         globals: false,
