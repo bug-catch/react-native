@@ -1,6 +1,6 @@
 {
     "name": "@bug-catch/react-native",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "homepage": "https://github.com/bug-catch/react-native#readme",
     "description": "Catch all errors and log custom events within react-native app.",
     "scripts": {
@@ -32,12 +32,12 @@
         "dist"
     ],
     "types": "./dist/index.d.ts",
-    "main": "./dist/bugcatch.umd.js",
+    "main": "./dist/index.umd.js",
     "module": "./dist/index.js",
     "exports": {
         ".": {
             "import": "./dist/index.js",
-            "require": "./dist/bugcatch.umd.js"
+            "require": "./dist/index.umd.js"
         }
     },
     "author": {
