@@ -9,7 +9,7 @@ const isDev = process.env.NODE_ENV !== "production";
 export default defineConfig({
     build: {
         lib: {
-            entry: path.resolve(__dirname, "src/index.js"),
+            entry: path.resolve(__dirname, "src/index.ts"),
             name: "bugcatch",
             fileName: (format) => `bugcatch.${format}.js`
         },
@@ -27,7 +27,7 @@ export default defineConfig({
         // https://vitest.dev/api/
         globals: false,
         environment: "happy-dom",
-        setupFiles: "./src/tests/setupTests.ts",
+        setupFiles: "./__tests__/setupTests.ts",
         coverage: {
             enabled: false,
             provider: "v8"

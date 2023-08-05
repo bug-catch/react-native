@@ -1,11 +1,9 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 /**
- * Retrieve data from store, parse if required
- * @param {String} key
- * @param {Boolean} isJson
+ * Retrieve data from store.
  */
-export const get = async (key, isJson = true) => {
+export const get = async (key: string, isJson = true) => {
     try {
         const value = await AsyncStorage.getItem(key);
         if (!value) return null;
@@ -17,12 +15,9 @@ export const get = async (key, isJson = true) => {
 };
 
 /**
- * Store data, stringify if required
- * @param {String} key
- * @param {*} value
- * @param {Boolean} isJson
+ * Store data.
  */
-export const set = async (key, value, isJson = true) => {
+export const set = async (key: string, value: any, isJson = true) => {
     try {
         let storedValue = value;
         if (isJson) storedValue = JSON.stringify(value);
