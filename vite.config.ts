@@ -10,8 +10,9 @@ export default defineConfig({
     build: {
         lib: {
             name: "bugcatch",
+            formats: ["es", "umd"],
             entry: path.resolve(__dirname, "src/index.ts"),
-            fileName: (format) => `bugcatch.${format}.js`
+            fileName: (format) => (format === "es" ? `index.js` : `index.${format}.js`)
         },
         rollupOptions: {
             // Don't bundle dependencies.
@@ -29,6 +30,9 @@ export default defineConfig({
         globals: false,
         environment: "happy-dom",
         setupFiles: "./__tests__/setupTests.ts",
+        deps: {
+            inline: ["react", "react-native", "react-native-exception-handler"]
+        },
         coverage: {
             enabled: false,
             provider: "v8"

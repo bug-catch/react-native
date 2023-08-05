@@ -16,6 +16,7 @@
         "react-native-exception-handler": "^2.10.10"
     },
     "devDependencies": {
+        "@types/node": "^20.4.8",
         "happy-dom": "^10.8.0",
         "typescript": "^5.1.6",
         "vite": "^4.4.8",
@@ -26,11 +27,12 @@
     "files": [
         "dist"
     ],
+    "types": "./dist/index.d.ts",
     "main": "./dist/bugcatch.umd.js",
-    "module": "./dist/bugcatch.es.js",
+    "module": "./dist/index.js",
     "exports": {
         ".": {
-            "import": "./dist/bugcatch.es.js",
+            "import": "./dist/index.js",
             "require": "./dist/bugcatch.umd.js"
         }
     },
