@@ -7,26 +7,28 @@ export type DefaultOptions = {
     baseUrl: string;
     release: string;
     logEvents?: boolean;
+    disableExceptionHandler?: boolean;
 };
 
 class BugCatch {
-    //
-    // Setup
-    //
     baseUrl: string;
     release: string;
     logEvents: boolean;
+    disableExceptionHandler: boolean;
 
     constructor(userOptions: DefaultOptions) {
         this.baseUrl = userOptions.baseUrl;
         this.release = userOptions.release;
         this.logEvents = userOptions.logEvents ?? false;
+        this.disableExceptionHandler = userOptions.disableExceptionHandler ?? false;
 
-        // Register error handler for react-native
-        setJSExceptionHandler((error, isFatal) => {
-            if (this.logEvents) console.error("[Bug Catch] Error", error, isFatal);
-            this.onError(error, isFatal);
-        });
+        if (!this.disableExceptionHandler) {
+            // Register error handler for react-native
+            setJSExceptionHandler((error, isFatal) => {
+                if (this.logEvents) console.error("[Bug Catch] Error", error, isFatal);
+                this.onError(error, isFatal);
+            });
+        }
     }
 
     /**
@@ -94,7 +96,9 @@ class BugCatch {
  */
 export const init = (userOptions: DefaultOptions) => {
     return new BugCatch({
+        // Default options
         logEvents: false,
+        disableExceptionHandler: false,
         ...userOptions
     });
 };
