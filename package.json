@@ -1,12 +1,10 @@
 {
     "name": "@bug-catch/react-native",
-    "version": "2.1.16",
+    "version": "2.2.17",
     "homepage": "https://github.com/bug-catch/react-native#readme",
     "description": "Catch all errors and log custom events within react-native app.",
     "scripts": {
-        "build": "tsc && vite build",
-        "dev": "vite",
-        "lint": "tsc",
+        "build": "tsc",
         "test": "vitest run",
         "test:ui": "vitest --ui",
         "test:watch": "vitest watch"
@@ -17,12 +15,7 @@
     },
     "devDependencies": {
         "@types/node": "^20.4.8",
-        "happy-dom": "^10.8.0",
-        "typescript": "^5.1.6",
-        "vite": "^4.4.8",
-        "vite-plugin-dts": "^3.5.0",
-        "vite-tsconfig-paths": "^4.2.0",
-        "vitest": "^0.34.1"
+        "typescript": "^5.1.6"
     },
     "peerDependencies": {
         "expo": "*",
@@ -32,17 +25,10 @@
     },
     "files": [
         "dist",
-        "web.js"
+        "src"
     ],
     "types": "./dist/index.d.ts",
-    "main": "./dist/index.umd.js",
-    "module": "./dist/index.js",
-    "exports": {
-        ".": {
-            "import": "./dist/index.js",
-            "require": "./dist/index.umd.js"
-        }
-    },
+    "main": "./dist/index.js",
     "author": {
         "name": "Harry Merritt",
         "url": "https://github.com/hmerritt"
