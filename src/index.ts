@@ -56,6 +56,8 @@ class BugCatch {
         } catch (error) {
             console.error("[Bug Catch] Device info error:", error);
         }
+
+        return this.deviceInfo;
     };
 
     /**
