@@ -2,7 +2,7 @@ import {
     JSExceptionHandler,
     setJSExceptionHandler
 } from "react-native-exception-handler";
-import * as Device from "expo-device";
+import { modelName, brand, deviceType, osName, osVersion } from "expo-device";
 
 export type DefaultOptions = {
     baseUrl: string;
@@ -26,8 +26,6 @@ class BugCatch {
         this.logEvents = userOptions.logEvents ?? false;
         this.captureDeviceInfo = userOptions.captureDeviceInfo ?? true;
         this.disableExceptionHandler = userOptions.disableExceptionHandler ?? false;
-        this.deviceInfo = undefined;
-        if (this.captureDeviceInfo) this.setDeviceInfo();
 
         if (!this.disableExceptionHandler) {
             // Register error handler for react-native
@@ -36,6 +34,9 @@ class BugCatch {
                 this.onError(error, isFatal);
             });
         }
+
+        this.deviceInfo = undefined;
+        if (this.captureDeviceInfo) this.setDeviceInfo();
     }
 
     setDeviceInfo = () => {
@@ -43,18 +44,18 @@ class BugCatch {
             const toLower = (str: any) =>
                 typeof str === "string" ? str.toLowerCase() : str;
             this.deviceInfo = {
-                name: toLower(Device.modelName),
-                brand: toLower(Device.brand),
+                name: toLower(modelName),
+                brand: toLower(brand),
                 device: {
                     0: "unknown",
                     1: "phone",
                     2: "tablet",
                     3: "desktop",
                     4: "tv"
-                }[Device.deviceType || 0],
+                }[(deviceType as number) || 0],
                 os: {
-                    name: toLower(Device.osName),
-                    version: toLower(Device.osVersion)
+                    name: toLower(osName),
+                    version: toLower(osVersion)
                 }
             };
 
