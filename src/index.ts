@@ -1,4 +1,10 @@
 import {
+    getBaseOs,
+    getBrand,
+    getDeviceType,
+    getSystemVersion
+} from "react-native-device-info";
+import {
     JSExceptionHandler,
     setJSExceptionHandler
 } from "react-native-exception-handler";
@@ -15,12 +21,14 @@ class BugCatch {
     release: string;
     logEvents: boolean;
     disableExceptionHandler: boolean;
+    deviceInfo: any;
 
     constructor(userOptions: DefaultOptions) {
         this.baseUrl = userOptions.baseUrl;
         this.release = userOptions.release;
         this.logEvents = userOptions.logEvents ?? false;
         this.disableExceptionHandler = userOptions.disableExceptionHandler ?? false;
+        this.setDeviceInfo();
 
         if (!this.disableExceptionHandler) {
             // Register error handler for react-native
@@ -30,6 +38,21 @@ class BugCatch {
             });
         }
     }
+
+    setDeviceInfo = async () => {
+        try {
+            this.deviceInfo = {
+                device: getDeviceType(),
+                os: {
+                    name: await getBaseOs(),
+                    brand: getBrand(),
+                    version: getSystemVersion()
+                }
+            };
+        } catch (error) {
+            console.error("[Bug Catch] Device info error:", error);
+        }
+    };
 
     /**
      * Send event data to the server.
@@ -51,8 +74,9 @@ class BugCatch {
      */
     private _newEvent = (type: any, data: any) => {
         return {
-            type: type,
-            data: data,
+            type,
+            data,
+            device: this.deviceInfo,
             release: this.release
         };
     };
