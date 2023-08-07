@@ -1,14 +1,8 @@
 import {
-    getBrand,
-    getDeviceId,
-    getDeviceType,
-    getSystemName,
-    getSystemVersion
-} from "react-native-device-info";
-import {
     JSExceptionHandler,
     setJSExceptionHandler
 } from "react-native-exception-handler";
+import * as Device from "expo-device";
 
 export type DefaultOptions = {
     baseUrl: string;
@@ -47,12 +41,12 @@ class BugCatch {
     setDeviceInfo = async () => {
         try {
             this.deviceInfo = {
-                name: getDeviceId()?.toLowerCase(),
-                device: getDeviceType()?.toLowerCase(),
+                name: Device.modelName?.toLowerCase(),
+                device: (Device.deviceType as unknown as string)?.toLowerCase(),
                 os: {
-                    name: getSystemName()?.toLowerCase(),
-                    brand: getBrand()?.toLowerCase(),
-                    version: getSystemVersion()?.toLowerCase()
+                    name: Device.osName?.toLowerCase(),
+                    brand: Device?.brand?.toLowerCase(),
+                    version: Device.osVersion
                 }
             };
         } catch (error) {

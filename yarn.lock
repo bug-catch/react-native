@@ -45,8 +45,8 @@ __metadata:
   dependencies:
     "@react-native-async-storage/async-storage": ^1.15.14
     "@types/node": ^20.4.8
+    expo-device: ^5.4.0
     happy-dom: ^10.8.0
-    react-native-device-info: ^10.8.0
     react-native-exception-handler: ^2.10.10
     typescript: ^5.1.6
     vite: ^4.4.8
@@ -1059,6 +1059,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"expo-device@npm:^5.4.0":
+  version: 5.5.0
+  resolution: "expo-device@npm:5.5.0"
+  dependencies:
+    ua-parser-js: ^0.7.33
+  peerDependencies:
+    expo: "*"
+  checksum: 3fa618e8f496f3a1430ea7502c5c34e10dedb29ec5c4177dd2fe4ca2df144b40c6b2b19e93483b6ef57c67af8d6f3c9ba53f1eb524978b0fc7d7d4f61364ffad
+  languageName: node
+  linkType: hard
+
 "exponential-backoff@npm:^3.1.1":
   version: 3.1.1
   resolution: "exponential-backoff@npm:3.1.1"
@@ -1886,15 +1897,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-device-info@npm:^10.8.0":
-  version: 10.8.0
-  resolution: "react-native-device-info@npm:10.8.0"
-  peerDependencies:
-    react-native: "*"
-  checksum: 9875ad17a8b73a418befd010c4a33a5a43d5c09c2f63a445c1cec35746014c392c35dee487e81e9ff7c0568ff08fbd51ccee33f3c7bc4f71a065e7d47c205b6b
-  languageName: node
-  linkType: hard
-
 "react-native-exception-handler@npm:^2.10.10":
   version: 2.10.10
   resolution: "react-native-exception-handler@npm:2.10.10"
@@ -2314,6 +2316,13 @@ __metadata:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: d26b6ba97b6d163c55dbdffd9bbb4c211667ebebc743accfeb2c8c0154aace7afd097b51165a72a5bad2cf65a4612259344ff60f8e642362aa1695c760d303ac
+  languageName: node
+  linkType: hard
+
+"ua-parser-js@npm:^0.7.33":
+  version: 0.7.35
+  resolution: "ua-parser-js@npm:0.7.35"
+  checksum: 0a332e8d72d277e62f29ecb3a33843b274de93eb9378350b746ea0f89ef05ee09c94f2c1fdab8001373ad5e95a48beb0a94f39dc1670c908db9fc9b8f0876204
   languageName: node
   linkType: hard
 
