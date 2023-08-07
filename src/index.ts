@@ -38,7 +38,7 @@ class BugCatch {
         }
     }
 
-    setDeviceInfo = async () => {
+    setDeviceInfo = () => {
         try {
             const toLower = (str: any) =>
                 typeof str === "string" ? str.toLowerCase() : str;
@@ -51,6 +51,8 @@ class BugCatch {
                     version: toLower(Device.osVersion)
                 }
             };
+
+            if (this.logEvents) console.table([this.deviceInfo]);
         } catch (error) {
             console.error("[Bug Catch] Device info error:", error);
         }
