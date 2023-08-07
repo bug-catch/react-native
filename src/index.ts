@@ -76,10 +76,11 @@ class BugCatch {
     /**
      * Create new event object
      */
-    private _newEvent = (type: any, data: any) => {
+    private _newEvent = (type: any, data: any, incidentData: any = undefined) => {
         return {
             type,
             data,
+            incidentData,
             device: this.deviceInfo,
             release: this.release
         };
@@ -112,11 +113,12 @@ class BugCatch {
     /**
      * Create a new event and submit the data to the API.
      */
-    recordEvent = (name: string, data: any) => {
-        if (this.logEvents) console.log(`[Bug Catch] Event: ${name}`, { name, data });
+    recordEvent = (name: string, data: any, incidentData: any = undefined) => {
+        if (this.logEvents)
+            console.log(`[Bug Catch] Event: ${name}`, { name, data, incidentData });
 
         // Send incident data to server
-        this._catchEvent(this._newEvent(name, data));
+        this._catchEvent(this._newEvent(name, data, incidentData));
     };
 }
 
