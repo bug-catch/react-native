@@ -1,6 +1,6 @@
 {
     "name": "@bug-catch/react-native",
-    "version": "2.1.12",
+    "version": "2.1.13",
     "homepage": "https://github.com/bug-catch/react-native#readme",
     "description": "Catch all errors and log custom events within react-native app.",
     "scripts": {

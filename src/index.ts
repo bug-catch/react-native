@@ -44,6 +44,7 @@ class BugCatch {
                 typeof str === "string" ? str.toLowerCase() : str;
             this.deviceInfo = {
                 name: toLower(Device.modelName),
+                brand: toLower(Device.brand),
                 device: {
                     0: "unknown",
                     1: "phone",
@@ -53,7 +54,6 @@ class BugCatch {
                 }[Device.deviceType || 0],
                 os: {
                     name: toLower(Device.osName),
-                    brand: toLower(Device.brand),
                     version: toLower(Device.osVersion)
                 }
             };
