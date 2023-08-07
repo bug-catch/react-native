@@ -40,13 +40,15 @@ class BugCatch {
 
     setDeviceInfo = async () => {
         try {
+            const toLower = (str: any) =>
+                typeof str === "string" ? str.toLowerCase() : str;
             this.deviceInfo = {
-                name: Device.modelName?.toLowerCase(),
-                device: (Device.deviceType as unknown as string)?.toLowerCase(),
+                name: toLower(Device.modelName),
+                device: toLower(Device.deviceType),
                 os: {
-                    name: Device.osName?.toLowerCase(),
-                    brand: Device?.brand?.toLowerCase(),
-                    version: Device.osVersion
+                    name: toLower(Device.osName),
+                    brand: toLower(Device.brand),
+                    version: toLower(Device.osVersion)
                 }
             };
         } catch (error) {
