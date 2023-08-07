@@ -1,7 +1,8 @@
 import {
-    getBaseOs,
     getBrand,
+    getDeviceId,
     getDeviceType,
+    getSystemName,
     getSystemVersion
 } from "react-native-device-info";
 import {
@@ -46,11 +47,12 @@ class BugCatch {
     setDeviceInfo = async () => {
         try {
             this.deviceInfo = {
-                device: getDeviceType(),
+                name: getDeviceId()?.toLowerCase(),
+                device: getDeviceType()?.toLowerCase(),
                 os: {
-                    name: await getBaseOs(),
-                    brand: getBrand(),
-                    version: getSystemVersion()
+                    name: getSystemName()?.toLowerCase(),
+                    brand: getBrand()?.toLowerCase(),
+                    version: getSystemVersion()?.toLowerCase()
                 }
             };
         } catch (error) {
