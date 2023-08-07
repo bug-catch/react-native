@@ -15,7 +15,7 @@ export default defineConfig({
         },
         rollupOptions: {
             // Don't bundle built-in Node.js modules.
-            external: ["react", "react-native", "expo-modules-core", /^node:.*/]
+            external: ["react", "react-native", /^node:.*/]
         },
         minify: true
     },
@@ -29,7 +29,7 @@ export default defineConfig({
         environment: "happy-dom",
         setupFiles: "./__tests__/setupTests.ts",
         deps: {
-            inline: ["react", "react-native", "expo-modules-core"]
+            inline: ["react", "react-native"]
         },
         coverage: {
             enabled: false,

@@ -46,6 +46,7 @@ __metadata:
     "@react-native-async-storage/async-storage": ^1.15.14
     "@types/node": ^20.4.8
     expo-device: ^5.4.0
+    expo-modules-core: ^1.5.9
     happy-dom: ^10.8.0
     react-native-exception-handler: ^2.10.10
     typescript: ^5.1.6
@@ -843,6 +844,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"compare-versions@npm:^3.4.0":
+  version: 3.6.0
+  resolution: "compare-versions@npm:3.6.0"
+  checksum: 7492a50cdaa2c27f5254eee7c4b38856e1c164991bab3d98d7fd067fe4b570d47123ecb92523b78338be86aa221668fd3868bfe8caa5587dc3ebbe1a03d52b5d
+  languageName: node
+  linkType: hard
+
 "concat-map@npm:0.0.1":
   version: 0.0.1
   resolution: "concat-map@npm:0.0.1"
@@ -1067,6 +1075,16 @@ __metadata:
   peerDependencies:
     expo: "*"
   checksum: 3fa618e8f496f3a1430ea7502c5c34e10dedb29ec5c4177dd2fe4ca2df144b40c6b2b19e93483b6ef57c67af8d6f3c9ba53f1eb524978b0fc7d7d4f61364ffad
+  languageName: node
+  linkType: hard
+
+"expo-modules-core@npm:^1.5.9":
+  version: 1.6.0
+  resolution: "expo-modules-core@npm:1.6.0"
+  dependencies:
+    compare-versions: ^3.4.0
+    invariant: ^2.2.4
+  checksum: 7e3d697cdeb7e1246216f9f4024f16d1a2966805b8cb46fd938cec1feec5bffb5aa166f0b25a6edb5bdf881ca318e142957d25ab4fb48420d8f060fc3742f4a4
   languageName: node
   linkType: hard
 
@@ -1352,6 +1370,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"invariant@npm:^2.2.4":
+  version: 2.2.4
+  resolution: "invariant@npm:2.2.4"
+  dependencies:
+    loose-envify: ^1.0.0
+  checksum: cc3182d793aad82a8d1f0af697b462939cb46066ec48bbf1707c150ad5fad6406137e91a262022c269702e01621f35ef60269f6c0d7fd178487959809acdfb14
+  languageName: node
+  linkType: hard
+
 "ip@npm:^2.0.0":
   version: 2.0.0
   resolution: "ip@npm:2.0.0"
@@ -1416,6 +1443,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"js-tokens@npm:^3.0.0 || ^4.0.0":
+  version: 4.0.0
+  resolution: "js-tokens@npm:4.0.0"
+  checksum: 8a95213a5a77deb6cbe94d86340e8d9ace2b93bc367790b260101d2f36a2eaf4e4e22d9fa9cf459b38af3a32fb4190e638024cf82ec95ef708680e405ea7cc78
+  languageName: node
+  linkType: hard
+
 "json-schema-traverse@npm:^0.4.1":
   version: 0.4.1
   resolution: "json-schema-traverse@npm:0.4.1"
@@ -1474,6 +1508,17 @@ __metadata:
   version: 4.17.21
   resolution: "lodash@npm:4.17.21"
   checksum: eb835a2e51d381e561e508ce932ea50a8e5a68f4ebdd771ea240d3048244a8d13658acbd502cd4829768c56f2e16bdd4340b9ea141297d472517b83868e677f7
+  languageName: node
+  linkType: hard
+
+"loose-envify@npm:^1.0.0":
+  version: 1.4.0
+  resolution: "loose-envify@npm:1.4.0"
+  dependencies:
+    js-tokens: ^3.0.0 || ^4.0.0
+  bin:
+    loose-envify: cli.js
+  checksum: 6517e24e0cad87ec9888f500c5b5947032cdfe6ef65e1c1936a0c48a524b81e65542c9c3edc91c97d5bddc806ee2a985dbc79be89215d613b1de5db6d1cfe6f4
   languageName: node
   linkType: hard
 
