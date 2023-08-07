@@ -26,8 +26,8 @@ class BugCatch {
         this.logEvents = userOptions.logEvents ?? false;
         this.captureDeviceInfo = userOptions.captureDeviceInfo ?? true;
         this.disableExceptionHandler = userOptions.disableExceptionHandler ?? false;
+        this.deviceInfo = undefined;
         if (this.captureDeviceInfo) this.setDeviceInfo();
-        else this.deviceInfo = undefined;
 
         if (!this.disableExceptionHandler) {
             // Register error handler for react-native
@@ -44,7 +44,13 @@ class BugCatch {
                 typeof str === "string" ? str.toLowerCase() : str;
             this.deviceInfo = {
                 name: toLower(Device.modelName),
-                device: toLower(Device.deviceType),
+                device: {
+                    0: "unknown",
+                    1: "phone",
+                    2: "tablet",
+                    3: "desktop",
+                    4: "tv"
+                }[Device.deviceType || 0],
                 os: {
                     name: toLower(Device.osName),
                     brand: toLower(Device.brand),
