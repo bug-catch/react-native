@@ -13,6 +13,7 @@ export type DefaultOptions = {
     baseUrl: string;
     release: string;
     logEvents?: boolean;
+    captureDeviceInfo?: boolean;
     disableExceptionHandler?: boolean;
 };
 
@@ -20,6 +21,7 @@ class BugCatch {
     baseUrl: string;
     release: string;
     logEvents: boolean;
+    captureDeviceInfo: boolean;
     disableExceptionHandler: boolean;
     deviceInfo: any;
 
@@ -27,8 +29,10 @@ class BugCatch {
         this.baseUrl = userOptions.baseUrl;
         this.release = userOptions.release;
         this.logEvents = userOptions.logEvents ?? false;
+        this.captureDeviceInfo = userOptions.captureDeviceInfo ?? true;
         this.disableExceptionHandler = userOptions.disableExceptionHandler ?? false;
-        this.setDeviceInfo();
+        if (this.captureDeviceInfo) this.setDeviceInfo();
+        else this.deviceInfo = undefined;
 
         if (!this.disableExceptionHandler) {
             // Register error handler for react-native
