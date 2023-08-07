@@ -1,6 +1,6 @@
 {
     "name": "@bug-catch/react-native",
-    "version": "2.1.9",
+    "version": "2.1.10",
     "homepage": "https://github.com/bug-catch/react-native#readme",
     "description": "Catch all errors and log custom events within react-native app.",
     "scripts": {
@@ -14,7 +14,6 @@
     "dependencies": {
         "@react-native-async-storage/async-storage": "^1.15.14",
         "expo-device": "^5.4.0",
-        "expo-modules-core": "^1.5.9",
         "react-native-exception-handler": "^2.10.10"
     },
     "devDependencies": {

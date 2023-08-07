@@ -3,7 +3,6 @@ import path from "path";
 import dts from "vite-plugin-dts";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
-import pkg from "./package.json" assert { type: "json" };
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -16,7 +15,7 @@ export default defineConfig({
         },
         rollupOptions: {
             // Don't bundle built-in Node.js modules.
-            external: ["react", "react-native", /^node:.*/]
+            external: ["react", "react-native", "expo-modules-core", /^node:.*/]
         },
         minify: true
     },
@@ -30,7 +29,7 @@ export default defineConfig({
         environment: "happy-dom",
         setupFiles: "./__tests__/setupTests.ts",
         deps: {
-            inline: ["react", "react-native"]
+            inline: ["react", "react-native", "expo-modules-core"]
         },
         coverage: {
             enabled: false,
