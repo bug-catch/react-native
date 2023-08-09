@@ -1,6 +1,6 @@
 {
     "name": "@bug-catch/react-native",
-    "version": "2.2.17",
+    "version": "2.3.17",
     "homepage": "https://github.com/bug-catch/react-native#readme",
     "description": "Catch all errors and log custom events within react-native app.",
     "scripts": {
@@ -15,6 +15,7 @@
     },
     "devDependencies": {
         "@types/node": "^20.4.8",
+        "@types/react-native": "^0.72.2",
         "typescript": "^5.1.6"
     },
     "peerDependencies": {
